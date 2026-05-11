@@ -8,7 +8,7 @@ export default defineConfig({
     strictPort: false
   },
   build: {
-    outDir: "dist-react",
+    outDir: "dist",
     emptyOutDir: true
   }
 });
