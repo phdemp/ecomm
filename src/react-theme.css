@@ -261,6 +261,221 @@ footer button {
   font-size: 24px;
 }
 
+.admin-shell {
+  background: #f8f8fb;
+}
+
+.admin-layout {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: 250px minmax(0, 1fr);
+}
+
+.admin-sidebar,
+.admin-panel,
+.admin-stat-card,
+.admin-toolbar {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 8px;
+}
+
+.admin-sidebar {
+  align-self: start;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 18px;
+  position: sticky;
+  top: 104px;
+}
+
+.admin-logo {
+  border-bottom: 1px solid #eee;
+  margin-bottom: 10px;
+  padding-bottom: 18px;
+}
+
+.admin-logo img {
+  max-width: 150px;
+}
+
+.admin-sidebar button {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  color: #555;
+  display: flex;
+  gap: 10px;
+  padding: 12px 10px;
+  text-align: left;
+}
+
+.admin-sidebar button i {
+  font-size: 20px;
+}
+
+.admin-sidebar button.active,
+.admin-sidebar button:hover {
+  background: rgba(255, 76, 59, .08);
+  color: var(--theme-color, #ff4c3b);
+}
+
+.admin-content {
+  min-width: 0;
+}
+
+.admin-toolbar {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  padding: 22px;
+}
+
+.admin-toolbar h3,
+.admin-panel-title h4,
+.admin-stat-card h4 {
+  margin-bottom: 0;
+}
+
+.admin-toolbar p {
+  color: #777;
+  margin-bottom: 0;
+}
+
+.admin-stats {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-bottom: 24px;
+}
+
+.admin-stat-card {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.admin-stat-card span,
+.admin-stat-card small {
+  color: #777;
+}
+
+.admin-stat-card h4 {
+  color: #222;
+  font-size: 26px;
+  margin-top: 6px;
+}
+
+.admin-stat-card > i {
+  align-items: center;
+  background: rgba(255, 76, 59, .1);
+  border-radius: 8px;
+  color: var(--theme-color, #ff4c3b);
+  display: flex;
+  font-size: 28px;
+  height: 54px;
+  justify-content: center;
+  width: 54px;
+}
+
+.admin-panel {
+  padding: 22px;
+}
+
+.admin-panel-title {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.admin-panel-title button {
+  background: transparent;
+  border: 0;
+  color: var(--theme-color, #ff4c3b);
+  font-weight: 600;
+}
+
+.admin-table {
+  margin-bottom: 0;
+}
+
+.admin-table th {
+  color: #777;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.admin-status {
+  border-radius: 999px;
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 5px 10px;
+}
+
+.admin-status.paid,
+.admin-status.shipped {
+  background: rgba(25, 135, 84, .12);
+  color: #198754;
+}
+
+.admin-status.processing {
+  background: rgba(255, 193, 7, .18);
+  color: #9a6a00;
+}
+
+.admin-chart {
+  align-items: end;
+  background: linear-gradient(180deg, #fbfbfb 0%, #fff 100%);
+  border: 1px solid #eee;
+  display: flex;
+  gap: 14px;
+  height: 260px;
+  padding: 20px;
+}
+
+.admin-chart span {
+  background: linear-gradient(180deg, var(--theme-color, #ff4c3b), #ff9489);
+  border-radius: 6px 6px 0 0;
+  flex: 1;
+  min-height: 28px;
+}
+
+.admin-inventory {
+  display: grid;
+  gap: 12px;
+}
+
+.admin-inventory-item {
+  align-items: center;
+  border: 1px solid #eee;
+  display: grid;
+  gap: 14px;
+  grid-template-columns: 56px minmax(0, 1fr) auto auto;
+  padding: 12px;
+}
+
+.admin-inventory-item img {
+  background: #f8f8f8;
+  height: 56px;
+  object-fit: cover;
+  width: 56px;
+}
+
+.admin-inventory-item h5,
+.admin-inventory-item p {
+  margin-bottom: 0;
+}
+
+.admin-inventory-item p,
+.admin-inventory-item span {
+  color: #777;
+}
+
 .react-tap-top {
   align-items: center;
   border: 0;
@@ -316,6 +531,18 @@ footer a {
   .hero-copy {
     min-height: 520px;
   }
+
+  .admin-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-sidebar {
+    position: static;
+  }
+
+  .admin-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 575px) {
@@ -330,5 +557,20 @@ footer a {
   .react-cart-total {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .admin-toolbar,
+  .admin-panel-title {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .admin-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-inventory-item {
+    grid-template-columns: 56px minmax(0, 1fr);
   }
 }

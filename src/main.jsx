@@ -78,6 +78,7 @@ function Header({ cartCount }) {
               <button onClick={() => navigate("/shop")}>Shop</button>
               <button onClick={() => navigate("/product/1")}>Product</button>
               <button onClick={() => navigate("/cart")}>Cart</button>
+              <button onClick={() => navigate("/admin")}>Admin</button>
             </nav>
             <div className="icon-nav">
               <ul>
@@ -300,6 +301,7 @@ function Footer() {
               <ul>
                 <li><button onClick={() => navigate("/")}>Home</button></li>
                 <li><button onClick={() => navigate("/cart")}>Cart</button></li>
+                <li><button onClick={() => navigate("/admin")}>Admin</button></li>
               </ul>
             </div>
             <div className="col-lg-3 col-md-6">
@@ -442,6 +444,141 @@ function CartPage({ cart, updateQty, removeItem }) {
   );
 }
 
+function AdminDashboard() {
+  const stats = [
+    { label: "Revenue", value: "$48,250", change: "+12.4%", icon: "ri-line-chart-line" },
+    { label: "Orders", value: "1,284", change: "+8.1%", icon: "ri-shopping-bag-3-line" },
+    { label: "Customers", value: "8,642", change: "+5.7%", icon: "ri-user-3-line" },
+    { label: "Products", value: "436", change: "+2.2%", icon: "ri-box-3-line" }
+  ];
+
+  const orders = [
+    ["#MK10231", "Sophia Hart", "Slim Fit Cotton Shirt", "$26.00", "Paid"],
+    ["#MK10230", "Noah Stone", "Denim Trucker Jacket", "$42.00", "Processing"],
+    ["#MK10229", "Mia Lane", "Printed Summer Dress", "$38.00", "Shipped"],
+    ["#MK10228", "Liam Ford", "Classic Linen Blazer", "$58.00", "Paid"]
+  ];
+
+  const inventory = products.slice(0, 5).map((product, index) => ({
+    ...product,
+    stock: [42, 18, 7, 64, 25][index],
+    sold: [118, 86, 73, 44, 62][index]
+  }));
+
+  return (
+    <>
+      <PageHeader title="Admin Dashboard" subtitle="React backend UI" />
+      <section className="admin-shell section-b-space">
+        <div className="container">
+          <div className="admin-layout">
+            <aside className="admin-sidebar">
+              <div className="admin-logo">
+                <img src={asset("/images/logo.png")} alt="Multikart" />
+              </div>
+              {["Dashboard", "Orders", "Products", "Customers", "Reports", "Settings"].map((item, index) => (
+                <button className={index === 0 ? "active" : ""} key={item}>
+                  <i className={["ri-dashboard-line", "ri-shopping-cart-line", "ri-price-tag-3-line", "ri-group-line", "ri-bar-chart-box-line", "ri-settings-3-line"][index]} />
+                  {item}
+                </button>
+              ))}
+            </aside>
+            <div className="admin-content">
+              <div className="admin-toolbar">
+                <div>
+                  <h3>Store Overview</h3>
+                  <p>Operational snapshot for catalog, customers, and orders.</p>
+                </div>
+                <button className="btn btn-solid">Export report</button>
+              </div>
+
+              <div className="admin-stats">
+                {stats.map((stat) => (
+                  <div className="admin-stat-card" key={stat.label}>
+                    <div>
+                      <span>{stat.label}</span>
+                      <h4>{stat.value}</h4>
+                      <small>{stat.change} this month</small>
+                    </div>
+                    <i className={stat.icon} />
+                  </div>
+                ))}
+              </div>
+
+              <div className="row g-4">
+                <div className="col-xl-7">
+                  <div className="admin-panel">
+                    <div className="admin-panel-title">
+                      <h4>Recent Orders</h4>
+                      <button>View all</button>
+                    </div>
+                    <div className="table-responsive">
+                      <table className="table admin-table">
+                        <thead>
+                          <tr>
+                            <th>Order</th>
+                            <th>Customer</th>
+                            <th>Item</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {orders.map(([id, customer, item, total, status]) => (
+                            <tr key={id}>
+                              <td>{id}</td>
+                              <td>{customer}</td>
+                              <td>{item}</td>
+                              <td>{total}</td>
+                              <td><span className={`admin-status ${status.toLowerCase()}`}>{status}</span></td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-xl-5">
+                  <div className="admin-panel">
+                    <div className="admin-panel-title">
+                      <h4>Sales Mix</h4>
+                      <button>Details</button>
+                    </div>
+                    <div className="admin-chart" aria-label="Sales mix chart">
+                      {[68, 52, 74, 46, 88, 61, 79].map((height, index) => (
+                        <span style={{ height: `${height}%` }} key={index} />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="admin-panel mt-4">
+                <div className="admin-panel-title">
+                  <h4>Inventory Watchlist</h4>
+                  <button onClick={() => navigate("/shop")}>Open catalog</button>
+                </div>
+                <div className="admin-inventory">
+                  {inventory.map((product) => (
+                    <div className="admin-inventory-item" key={product.id}>
+                      <img src={asset(product.image)} alt={product.name} />
+                      <div>
+                        <h5>{product.name}</h5>
+                        <p>{product.category}</p>
+                      </div>
+                      <strong>{product.stock} in stock</strong>
+                      <span>{product.sold} sold</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
+
 function PageHeader({ title, subtitle }) {
   return (
     <section className="breadcrumb-section">
@@ -493,6 +630,7 @@ function App() {
   if (route === "/shop") page = <ShopPage addToCart={addToCart} />;
   if (route.startsWith("/product")) page = <ProductPage route={route} addToCart={addToCart} />;
   if (route === "/cart") page = <CartPage cart={cart} updateQty={updateQty} removeItem={removeItem} />;
+  if (route === "/admin") page = <AdminDashboard />;
 
   return (
     <>

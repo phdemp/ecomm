@@ -3,6 +3,7 @@ dist/
 dist-react/
 .vite/
 front-end/
+back-end/
 assets/js/
 assets/images/*
 !assets/images/ajax-loader.gif
